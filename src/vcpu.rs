@@ -143,6 +143,21 @@ impl<H: AxVCpuHal> axvcpu::AxArchVCpu for Aarch64VCpu<H> {
     fn set_gpr(&mut self, idx: usize, val: usize) {
         self.ctx.set_gpr(idx, val);
     }
+
+    /// Get one of the vCPU's general purpose register.
+    fn get_gpr(&self, index: usize) -> usize {
+        self.ctx.gpr(index)
+    }
+
+    /// Get the value of the program counter (PC).
+    fn get_pc(&self) -> usize {
+        self.ctx.exception_pc()
+    }
+
+    /// Set the value of the program counter (PC).
+    fn set_pc(&mut self, val: usize) {
+        self.ctx.set_exception_pc(val);
+    }
 }
 
 // Private function
